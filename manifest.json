@@ -2,7 +2,7 @@
   "name": "Biblia Sacra",
   "short_name": "Biblia",
   "description": "ESV + Biblia Nowego Tysiąclecia — personal Bible study",
-  "start_url": "/",
+  "start_url": "/biblia-sacra/",
   "display": "standalone",
   "background_color": "#faf7f2",
   "theme_color": "#faf7f2",

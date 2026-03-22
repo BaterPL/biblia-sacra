@@ -1,103 +1,103 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Biblia Sacra" />
-  <meta name="theme-color" content="#faf7f2" />
-  <meta name="description" content="ESV + Biblia Nowego Tysiąclecia — personal Bible study app" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Biblia Sacra" />
+    <meta name="theme-color" content="#faf7f2" />
+    <meta name="description" content="ESV + Biblia Nowego Tysiąclecia — personal Bible study app" />
 
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
-  <title>Biblia Sacra</title>
+    <title>Biblia Sacra</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;500&display=swap"
-    rel="stylesheet"
-  />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;500&display=swap"
+        rel="stylesheet" />
 
-  <link rel="stylesheet" href="src/styles.css" />
+    <link rel="stylesheet" href="src/styles.css" />
 </head>
+
 <body>
 
-  <div id="app">
+    <div id="app">
 
-    <!-- Header -->
-    <header class="app-header" id="app-header">
-      <div class="app-title">✦ Biblia Sacra ✦</div>
-      <nav class="nav-row" aria-label="Nawigacja po księdze">
-        <select id="book-sel" class="nav-select" aria-label="Wybierz księgę"></select>
-        <select id="chap-sel" class="nav-select chap-sel" aria-label="Wybierz rozdział"></select>
-        <button class="go-btn" id="go-btn" onclick="App.loadChapter()">Czytaj</button>
-      </nav>
-    </header>
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="app-title">✦ Biblia Sacra ✦</div>
+            <nav class="nav-row" aria-label="Nawigacja po księdze">
+                <select id="book-sel" class="nav-select" aria-label="Wybierz księgę"></select>
+                <select id="chap-sel" class="nav-select chap-sel" aria-label="Wybierz rozdział"></select>
+                <button class="go-btn" id="go-btn" onclick="App.loadChapter()">Czytaj</button>
+            </nav>
+        </header>
 
-    <!-- API Key setup panel -->
-    <section class="api-panel" id="api-panel" aria-label="Konfiguracja klucza API">
-      <div class="api-panel-title">Klucz API ESV</div>
-      <div class="api-row">
-        <input
-          type="password"
-          id="api-key-input"
-          class="api-input"
-          placeholder="Wklej swój klucz API ESV…"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          aria-label="Klucz API ESV"
-        />
-        <button class="save-btn" onclick="App.saveKey()">Zapisz</button>
-      </div>
-      <p class="api-note">
-        Uzyskaj bezpłatny klucz na
-        <a href="https://api.esv.org" target="_blank" rel="noopener noreferrer">api.esv.org</a>.
-        Klucz jest przechowywany tylko lokalnie w Twojej przeglądarce i wysyłany wyłącznie
-        do serwerów ESV.
-      </p>
-    </section>
+        <!-- API Key setup panel -->
+        <section class="api-panel" id="api-panel" aria-label="Konfiguracja klucza API">
+            <div class="api-panel-title">Klucz API ESV</div>
+            <div class="api-row">
+                <input type="password" id="api-key-input" class="api-input" placeholder="Wklej swój klucz API ESV…"
+                    autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Klucz API ESV" />
+                <button class="save-btn" onclick="App.saveKey()">Zapisz</button>
+            </div>
+            <p class="api-note">
+                Uzyskaj bezpłatny klucz na
+                <a href="https://api.esv.org" target="_blank" rel="noopener noreferrer">api.esv.org</a>.
+                Klucz jest przechowywany tylko lokalnie w Twojej przeglądarce i wysyłany wyłącznie
+                do serwerów ESV.
+            </p>
+        </section>
 
-    <!-- Error display -->
-    <div id="error-area" role="alert" aria-live="polite"></div>
+        <!-- Error display -->
+        <div id="error-area" role="alert" aria-live="polite"></div>
 
-    <!-- Reference bar (shown after load) -->
-    <div class="ref-bar" id="ref-bar" hidden>
-      <span id="ref-label" class="ref-label"></span>
-      <span id="ref-verses" class="ref-verse-range"></span>
-    </div>
+        <!-- Reference bar (shown after load) -->
+        <div class="ref-bar" id="ref-bar" hidden>
+            <span id="ref-label" class="ref-label"></span>
+            <span id="ref-verses" class="ref-verse-range"></span>
+        </div>
 
-    <!-- Language / view mode tabs -->
-    <div class="lang-tabs" id="lang-tabs" role="tablist" aria-label="Wybór języka">
-      <button class="lang-tab active" role="tab" aria-selected="true"  data-mode="both" onclick="App.setMode('both')">ESV + Polski</button>
-      <button class="lang-tab"        role="tab" aria-selected="false" data-mode="esv"  onclick="App.setMode('esv')">ESV</button>
-      <button class="lang-tab"        role="tab" aria-selected="false" data-mode="pl"   onclick="App.setMode('pl')">Polski (BNT)</button>
-    </div>
+        <!-- Language / view mode tabs -->
+        <div class="lang-tabs" id="lang-tabs" role="tablist" aria-label="Wybór języka">
+            <button class="lang-tab active" role="tab" aria-selected="true" data-mode="both"
+                onclick="App.setMode('both')">ESV + Polski</button>
+            <button class="lang-tab" role="tab" aria-selected="false" data-mode="esv"
+                onclick="App.setMode('esv')">ESV</button>
+            <button class="lang-tab" role="tab" aria-selected="false" data-mode="pl" onclick="App.setMode('pl')">Polski
+                (BNT)</button>
+        </div>
 
-    <!-- Main content -->
-    <main id="content" class="content-area" aria-live="polite">
-      <div class="state-box">
-        <span class="ornament" aria-hidden="true">✦</span>
-        Wybierz księgę i rozdział, aby rozpocząć lekturę.
-      </div>
-    </main>
+        <!-- Main content -->
+        <main id="content" class="content-area" aria-live="polite">
+            <div class="state-box">
+                <span class="ornament" aria-hidden="true">✦</span>
+                Wybierz księgę i rozdział, aby rozpocząć lekturę.
+            </div>
+        </main>
 
-    <!-- Chapter navigation -->
-    <nav class="chap-nav" id="chap-nav" hidden aria-label="Nawigacja rozdziałów">
-      <button class="chap-nav-btn" id="prev-btn" onclick="App.changeChapter(-1)">← Poprzedni</button>
-      <span id="chap-nav-info" class="chap-nav-info"></span>
-      <button class="chap-nav-btn" id="next-btn" onclick="App.changeChapter(1)">Następny →</button>
-    </nav>
+        <!-- Chapter navigation -->
+        <nav class="chap-nav" id="chap-nav" hidden aria-label="Nawigacja rozdziałów">
+            <button class="chap-nav-btn" id="prev-btn" onclick="App.changeChapter(-1)">← Poprzedni</button>
+            <span id="chap-nav-info" class="chap-nav-info"></span>
+            <button class="chap-nav-btn" id="next-btn" onclick="App.changeChapter(1)">Następny →</button>
+        </nav>
 
-  </div><!-- /#app -->
+    </div><!-- /#app -->
 
-  <script src="src/books.js"></script>
-  <script src="src/api.js"></script>
-  <script src="src/render.js"></script>
-  <script src="src/app.js"></script>
+    <script src="src/books.js"></script>
+    <script src="src/api.js"></script>
+    <script src="src/render.js"></script>
+    <script src="src/app.js"></script>
 
 </body>
+
 </html>
