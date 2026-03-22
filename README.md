@@ -56,7 +56,7 @@ biblia-sacra/
 4. Copy the API token shown in your dashboard
 5. Paste it into the app on first launch and tap **Zapisz**
 
-Your key is stored in `sessionStorage` only (cleared when you close the tab/browser).
+Your key is stored in `localStorage` only (conscious security trade off — not stored in sessionStorage so it survives tab and browser restarts).
 It is **never** sent anywhere except Crossway's own `api.esv.org` servers.
 
 ---
@@ -142,7 +142,7 @@ A simple gold cross or open book on a parchment background works well.
 
 | Concern | How it is handled |
 |---------|------------------|
-| ESV API key storage | `sessionStorage` only — cleared on tab close, never in `localStorage` |
+| ESV API key storage | `localStorage` - convenience over security trade off |
 | ESV API key transmission | Sent only to `api.esv.org` over HTTPS |
 | No backend / no database | All state is client-side — no server sees your reading habits |
 | No analytics | Zero tracking scripts |

@@ -46,14 +46,14 @@ const App = (() => {
   /* ── Initialisation ─────────────────────────────────────── */
 
   function init() {
-    // Restore persisted API key (session-only via sessionStorage — never persisted to disk)
-    const savedKey = sessionStorage.getItem('esv_api_key');
+    // Restore persisted API key from localStorage
+    const savedKey = localStorage.getItem('esv_api_key');
     if (savedKey) {
       state.apiKey = savedKey;
       el.apiPanel().hidden = true;
     }
 
-    // Restore last position (localStorage — survives app restarts, key-free)
+    // Restore last position (localStorage — survives app restarts)
     const savedPos = _loadPosition();
     if (savedPos) {
       state.bookIdx = savedPos.bookIdx;
@@ -90,15 +90,15 @@ const App = (() => {
 
   /**
    * Save the ESV API key.
-   * The key is held in sessionStorage (cleared when tab closes) —
-   * it is never written to localStorage or sent anywhere except api.esv.org.
+   * The key is held in localStorage for convinience, conscious security trade off — not stored in sessionStorage,
+   * so it survives tab and browser restarts; never sent anywhere except api.esv.org
    */
   function saveKey() {
     const raw = el.apiKeyInput().value.trim();
     if (!raw) return;
 
     state.apiKey = raw;
-    sessionStorage.setItem('esv_api_key', raw);
+    localStorage.setItem('esv_api_key', raw);
 
     // Mask the input visually
     el.apiKeyInput().value = '•'.repeat(Math.min(raw.length, 24));
