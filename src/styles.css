@@ -1,0 +1,443 @@
+/* ============================================================
+   Biblia Sacra — styles.css
+   Design: warm parchment / refined serif aesthetic
+   ============================================================ */
+
+/* ── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Brand colours */
+  --gold:        #8b6914;
+  --gold-light:  #c9a84c;
+  --gold-wash:   rgba(139, 105, 20, 0.08);
+  --gold-ring:   rgba(139, 105, 20, 0.18);
+
+  /* Surfaces (light-mode default) */
+  --bg:          #faf7f2;
+  --bg-alt:      #f3ede3;
+  --bg-card:     #ffffff;
+
+  /* Text */
+  --ink:         #1c1a17;
+  --ink-muted:   #5a5345;
+  --ink-faint:   #9a8e7e;
+
+  /* Borders */
+  --border:      rgba(139, 105, 20, 0.15);
+  --border-em:   rgba(139, 105, 20, 0.28);
+
+  /* Semantic */
+  --error-bg:    #fdf0f0;
+  --error-text:  #9b2c2c;
+  --error-border:#f5c6c6;
+
+  /* Layout */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+
+  /* Typography */
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-body:    'EB Garamond', Georgia, serif;
+  --font-sec:     'Crimson Pro', Georgia, serif;
+
+  /* Safe area insets (iPhone notch / home bar) */
+  --safe-top:    env(safe-area-inset-top,    0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #17140f;
+    --bg-alt:    #211d16;
+    --bg-card:   #2a2520;
+    --ink:       #ede8df;
+    --ink-muted: #b5a990;
+    --ink-faint: #7a6e5e;
+    --border:    rgba(201, 168, 76, 0.12);
+    --border-em: rgba(201, 168, 76, 0.22);
+    --error-bg:    #2d1515;
+    --error-text:  #f8a0a0;
+    --error-border:#6b2222;
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* ── App shell ────────────────────────────────────────────── */
+#app {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-bottom: calc(80px + var(--safe-bottom));
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  background: var(--bg);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.app-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 11px;
+}
+
+.nav-row {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+/* ── Form controls ────────────────────────────────────────── */
+.nav-select,
+.api-input,
+.nav-input {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--bg-alt);
+  border: 0.5px solid var(--border-em);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-width: 0;
+}
+
+.nav-select:focus,
+.api-input:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 3px var(--gold-ring);
+}
+
+.nav-select        { flex: 1; }
+.nav-select.chap-sel { flex: 0 0 72px; }
+
+.go-btn,
+.save-btn,
+.chap-nav-btn {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: transparent;
+  border: 0.5px solid var(--gold-light);
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, opacity 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.go-btn:active,
+.save-btn:active,
+.chap-nav-btn:active { background: var(--bg-alt); }
+
+.chap-nav-btn:disabled {
+  color: var(--ink-faint);
+  border-color: var(--border);
+  cursor: default;
+}
+
+/* ── API key panel ────────────────────────────────────────── */
+.api-panel {
+  margin: 14px 16px;
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border: 0.5px solid var(--border-em);
+  border-radius: var(--radius-md);
+}
+
+.api-panel-title {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+
+.api-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.api-input {
+  flex: 1;
+  background: var(--bg-card);
+}
+
+.api-note {
+  font-family: var(--font-sec);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.api-note a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.api-note a:hover {
+  text-decoration: underline;
+}
+
+/* ── Error area ───────────────────────────────────────────── */
+#error-area:not(:empty) {
+  margin: 0 16px 4px;
+}
+
+.error-box {
+  padding: 11px 14px;
+  background: var(--error-bg);
+  border: 0.5px solid var(--error-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sec);
+  font-size: 14px;
+  color: var(--error-text);
+  line-height: 1.55;
+}
+
+/* ── Reference bar ────────────────────────────────────────── */
+.ref-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 9px 16px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.ref-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.ref-verse-range {
+  font-family: var(--font-sec);
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ── Language tabs ────────────────────────────────────────── */
+.lang-tabs {
+  display: flex;
+  background: var(--bg);
+  border-bottom: 0.5px solid var(--border);
+  position: sticky;
+  top: calc(70px + var(--safe-top));
+  z-index: 10;
+}
+
+.lang-tab {
+  flex: 1;
+  padding: 9px 8px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -0.5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.2s, border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lang-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold-light);
+}
+
+/* ── Main content ─────────────────────────────────────────── */
+.content-area {
+  padding: 16px 16px 8px;
+}
+
+/* ── State box (loading / empty) ──────────────────────────── */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px;
+  font-family: var(--font-sec);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-muted);
+  text-align: center;
+  gap: 10px;
+}
+
+.ornament {
+  font-size: 22px;
+  color: var(--gold-light);
+  font-style: normal;
+}
+
+/* ── Loading dots ─────────────────────────────────────────── */
+.loading-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  animation: dot-pulse 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-pulse {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.75); }
+  40%           { opacity: 1;    transform: scale(1); }
+}
+
+/* ── Ornamental divider ───────────────────────────────────── */
+.divider {
+  text-align: center;
+  color: var(--gold-light);
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  opacity: 0.65;
+  margin-bottom: 14px;
+}
+
+/* ── Verse list ───────────────────────────────────────────── */
+.verse-list { }
+
+/* Single-language verse row */
+.verse-item {
+  display: flex;
+  gap: 10px;
+  padding: 9px 6px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.verse-item:last-child { border-bottom: none; }
+.verse-item:active     { background: var(--bg-alt); }
+.verse-item.highlighted { background: var(--gold-wash); }
+
+/* Bilingual verse block */
+.verse-both {
+  padding: 11px 6px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.verse-both:last-child  { border-bottom: none; }
+.verse-both:active      { background: var(--bg-alt); }
+.verse-both.highlighted { background: var(--gold-wash); }
+
+/* Verse number */
+.verse-num {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--gold-light);
+  min-width: 22px;
+  flex-shrink: 0;
+  padding-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ESV text */
+.verse-text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Polish (BNT) text — italic, slightly smaller */
+.verse-text.polish {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* Bilingual: ESV line */
+.verse-esv {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+
+/* Bilingual: Polish line — indented with gold accent bar */
+.verse-pl {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  padding-left: 14px;
+  border-left: 2px solid rgba(139, 105, 20, 0.28);
+}
+
+/* ── Chapter navigation ───────────────────────────────────── */
+.chap-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-top: 0.5px solid var(--border);
+  margin-top: 8px;
+}
+
+.chap-nav-info {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
